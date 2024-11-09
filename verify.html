@@ -23,15 +23,17 @@
             width: 100%;
             height: 100%;
             pointer-events: none; /* Etkileşimi devre dışı bırakıyoruz */
+            z-index: 0; /* Arka planda olacak */
         }
 
         .raindrop {
             position: absolute;
-            background: rgba(255, 255, 255, 0.5);
-            width: 2px;
-            height: 20px;
+            background: rgba(255, 255, 255, 0.6);  /* Şeffaf beyaz renkte damlalar */
+            width: 3px;
+            height: 25px;
             animation: fall linear infinite;
             opacity: 0.5;
+            transform: translateY(0);
         }
 
         /* Yağmur damlalarının düşüş animasyonu */
@@ -46,13 +48,16 @@
 
         /* Kullanıcı arayüzü */
         .container {
-            position: relative;
-            z-index: 1;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);  /* Kutuyu tam ortaya yerleştiriyoruz */
             background-color: rgba(255, 255, 255, 0.8);
             padding: 40px;
             border-radius: 10px;
             width: 350px;
             text-align: center;
+            z-index: 1; /* Ön planda olacak */
         }
 
         h1 {
@@ -73,11 +78,26 @@
         .success {
             color: green;
         }
+
+        /* Arka planı bulanıklaştırmak için stil */
+        .background-blur {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);  /* Arka planın kararmasını sağlıyoruz */
+            backdrop-filter: blur(8px);  /* Arka planı bulanıklaştırıyoruz */
+            z-index: -1; /* Arka planda olacak */
+        }
     </style>
 </head>
 <body>
     <!-- Yağmur animasyonu -->
     <div class="rain"></div>
+
+    <!-- Arka plan bulanıklığı -->
+    <div class="background-blur"></div>
 
     <!-- İçerik kutusu -->
     <div class="container">
@@ -90,7 +110,7 @@
         // Yağmur damlalarını oluşturuyoruz
         function createRain() {
             const rainContainer = document.querySelector('.rain');
-            const numberOfRaindrops = 100;  // Damlaların sayısını belirliyoruz
+            const numberOfRaindrops = 200;  // Damlaların sayısını artırdık
 
             for (let i = 0; i < numberOfRaindrops; i++) {
                 const raindrop = document.createElement('div');
@@ -98,8 +118,9 @@
                 
                 // Damlaların pozisyonunu rastgele yerleştiriyoruz
                 raindrop.style.left = `${Math.random() * 100}vw`;  // Ekranın genişliği kadar rastgele
-                raindrop.style.animationDuration = `${Math.random() * 2 + 3}s`;  // Hızlarını rastgele belirliyoruz
+                raindrop.style.animationDuration = `${Math.random() * 2 + 2}s`;  // Hızlarını rastgele belirliyoruz
                 raindrop.style.animationDelay = `${Math.random() * 5}s`;  // Gecikme ekliyoruz
+                raindrop.style.animationTimingFunction = `cubic-bezier(${Math.random()}, ${Math.random()}, ${Math.random()}, ${Math.random()})`;  // Daha doğal hareket için hız eğrisini rastgele yapıyoruz
                 rainContainer.appendChild(raindrop);
             }
         }
