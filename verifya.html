@@ -11,12 +11,15 @@
             margin: 0;
             padding: 0;
             height: 100vh;
-            background-image: url('https://i.gifer.com/origin/1d/1d463bc05cd8ea9fc594fca94d3b1771_w200.gif'); /* Bulut resmi ekliyoruz */
+            background-image: url('https://i.gifer.com/4IA7.gif'); /* Yağmur animasyonu ekledik */
             background-size: cover; /* Arka planı kaplayacak şekilde ayarlıyoruz */
             display: flex;
             justify-content: center; /* Yatayda ortalama */
             align-items: center; /* Dikeyde ortalama */
             filter: blur(5px); /* Arka planı bulanıklaştırıyoruz */
+            position: fixed; /* Arka planı sabitliyoruz */
+            top: 0; left: 0;
+            right: 0; bottom: 0;
         }
 
         /* Sayfa kutusunun stilini ayarlıyoruz */
@@ -27,8 +30,8 @@
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
             width: 300px;
             text-align: center;
-            position: absolute;
-            backdrop-filter: blur(10px); /* Kutuyu bulanıklaştırıyoruz */
+            position: relative; /* Kutuyu normal akışa yerleştiriyoruz */
+            filter: none; /* Kutuyu bulanıklaştırmıyoruz */
         }
 
         h1 {
