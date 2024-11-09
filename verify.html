@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Verification</title>
+</head>
+<body>
+    <h1>Registration Verification</h1>
+    <p id="message">Processing your verification...</p>
+
+    <script>
+        // Get email and username parameters from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const email = urlParams.get('email');
+        const username = urlParams.get('username');
+
+        if (email && username) {
+            document.getElementById('message').innerHTML = `Your account with username <strong>${username}</strong> has been successfully verified!`;
+        } else {
+            document.getElementById('message').innerHTML = "An error occurred during verification.";
+        }
+    </script>
+</body>
+</html>
