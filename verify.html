@@ -15,49 +15,31 @@
             font-family: Arial, sans-serif;
         }
 
-        /* Yağmur animasyonu için stil */
-        .rain {
+        /* Arka plan için gri-beyaz gradient ve blur efekti */
+        .background-blur {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* Etkileşimi devre dışı bırakıyoruz */
-            z-index: 0; /* Arka planda olacak */
+            background: linear-gradient(to bottom, rgba(169, 169, 169, 0.7), rgba(255, 255, 255, 0.7));
+            backdrop-filter: blur(10px);  /* Arka planı bulanıklaştırıyoruz */
+            z-index: -1; /* Arka planda olacak */
         }
 
-        .raindrop {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.6);  /* Şeffaf beyaz renkte damlalar */
-            width: 3px;
-            height: 25px;
-            animation: fall linear infinite;
-            opacity: 0.5;
-            transform: translateY(0);
-        }
-
-        /* Yağmur damlalarının düşüş animasyonu */
-        @keyframes fall {
-            0% {
-                transform: translateY(-100px);
-            }
-            100% {
-                transform: translateY(100vh); /* Sayfa yüksekliği kadar düşer */
-            }
-        }
-
-        /* Kullanıcı arayüzü */
+        /* Kullanıcı arayüzü (kutuyu ortalamak için) */
         .container {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);  /* Kutuyu tam ortaya yerleştiriyoruz */
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.8);  /* Kutu şeffaf olacak */
             padding: 40px;
             border-radius: 10px;
             width: 350px;
             text-align: center;
-            z-index: 1; /* Ön planda olacak */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Kutunun etrafına hafif gölge */
+            z-index: 1; /* Kutuyu ön planda tutuyoruz */
         }
 
         h1 {
@@ -79,23 +61,9 @@
             color: green;
         }
 
-        /* Arka planı bulanıklaştırmak için stil */
-        .background-blur {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);  /* Arka planın kararmasını sağlıyoruz */
-            backdrop-filter: blur(8px);  /* Arka planı bulanıklaştırıyoruz */
-            z-index: -1; /* Arka planda olacak */
-        }
     </style>
 </head>
 <body>
-    <!-- Yağmur animasyonu -->
-    <div class="rain"></div>
-
     <!-- Arka plan bulanıklığı -->
     <div class="background-blur"></div>
 
@@ -107,27 +75,6 @@
     </div>
 
     <script>
-        // Yağmur damlalarını oluşturuyoruz
-        function createRain() {
-            const rainContainer = document.querySelector('.rain');
-            const numberOfRaindrops = 200;  // Damlaların sayısını artırdık
-
-            for (let i = 0; i < numberOfRaindrops; i++) {
-                const raindrop = document.createElement('div');
-                raindrop.classList.add('raindrop');
-                
-                // Damlaların pozisyonunu rastgele yerleştiriyoruz
-                raindrop.style.left = `${Math.random() * 100}vw`;  // Ekranın genişliği kadar rastgele
-                raindrop.style.animationDuration = `${Math.random() * 2 + 2}s`;  // Hızlarını rastgele belirliyoruz
-                raindrop.style.animationDelay = `${Math.random() * 5}s`;  // Gecikme ekliyoruz
-                raindrop.style.animationTimingFunction = `cubic-bezier(${Math.random()}, ${Math.random()}, ${Math.random()}, ${Math.random()})`;  // Daha doğal hareket için hız eğrisini rastgele yapıyoruz
-                rainContainer.appendChild(raindrop);
-            }
-        }
-
-        // Yağmur efektini başlatıyoruz
-        createRain();
-
         // URL'den e-posta parametresini alıyoruz
         function getUrlParameter(name) {
             const urlParams = new URLSearchParams(window.location.search);
