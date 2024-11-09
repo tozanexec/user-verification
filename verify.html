@@ -45,21 +45,12 @@
 
         const token = getUrlParameter('token');
         
-        // Token'ı doğrulamak için API'yi çağırıyoruz
-        fetch(`/verify?token=${token}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById('message').innerText = "Your email has been successfully verified!";
-                } else {
-                    document.getElementById('message').innerText = "Invalid or expired token.";
-                }
-            })
-            .catch(error => {
-                console.error("Error during verification:", error);
-                document.getElementById('message').innerText = "An error occurred. Please try again.";
-            });
+        // Token'ı doğrulama işlemi (simülasyon)
+        if (token) {
+            document.getElementById("message").innerText = "Email successfully verified!";
+        } else {
+            document.getElementById("message").innerText = "Invalid or missing token.";
+        }
     </script>
-
 </body>
 </html>
