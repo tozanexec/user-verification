@@ -3,23 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Verification</title>
+    <title>Email Verification</title>
 </head>
 <body>
-    <h1>Registration Verification</h1>
-    <p id="message">Processing your verification...</p>
-
-    <script>
-        // Get email and username parameters from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const email = urlParams.get('email');
-        const username = urlParams.get('username');
-
-        if (email && username) {
-            document.getElementById('message').innerHTML = `Your account with username <strong>${username}</strong> has been successfully verified!`;
-        } else {
-            document.getElementById('message').innerHTML = "An error occurred during verification.";
-        }
-    </script>
+    <h1>Thank you for signing up!</h1>
+    <p>To complete your registration, please verify your email address by clicking the link below:</p>
+    <a href="https://tozanexec.github.io/user-verification/verify.html?code=your_verification_code">Verify Email</a>
+    <p>If you did not sign up for an account, please ignore this email.</p>
 </body>
 </html>
