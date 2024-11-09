@@ -1,0 +1,57 @@
+/* Genel vücut ve arka plan ayarları */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    background: url('background-image.jpg') no-repeat center center fixed; /* Arka plan resmi ekleyebilirsiniz */
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Blur efekti */
+.blur-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(10px); /* Arka planın bulanıklaştırılması */
+    z-index: -1; /* İçeriğin üzerine gelmesini engeller */
+}
+
+/* Doğrulama kutusunun stil ayarları */
+.verification-box {
+    background: rgba(255, 255, 255, 0.8);
+    width: 400px;
+    padding: 40px;
+    text-align: center;
+    border-radius: 8px; /* Radial kenarlar */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+/* Başlık stil ayarları */
+.verification-box h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Link stil ayarları */
+.verification-box a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.verification-box a:hover {
+    text-decoration: underline;
+}
+
+/* Paragraf stil ayarları */
+.verification-box p {
+    font-size: 16px;
+}
