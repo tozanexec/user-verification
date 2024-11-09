@@ -5,47 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Verification</title>
     <style>
-        /* Body'nin genel stilini ayarlıyoruz */
-        body {
-            font-family: Arial, sans-serif;
+        /* Genel stil ayarları */
+        body, html {
             margin: 0;
             padding: 0;
-            height: 100vh;
-            background-color: #000; /* Arka planı siyah yapıyoruz */
-            display: flex;
-            justify-content: center; /* Yatayda ortalama */
-            align-items: center; /* Dikeyde ortalama */
+            height: 100%;
+            background-color: #000;
             overflow: hidden;
-            position: relative; /* Konumlandırmayı relative yapıyoruz */
+            font-family: Arial, sans-serif;
         }
 
-        /* Yağmur GIF'ini arka plan olarak kullanıyoruz */
-        .rain-background {
+        /* Yağmur animasyonu için stil */
+        .rain {
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: -2; /* Arka planda olacak şekilde */
-            background-image: url('https://cdn.pixabay.com/animation/6812/6812-4k-rain-storm-ocean-ripples-blue.gif'); /* Pixabay GIF'inizin yolu */
-            background-size: cover; /* Arka planı ekran boyutuna göre ayarla */
-            background-position: center center;
-            animation: rain 0.5s linear infinite; /* Animasyon ekliyoruz */
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Etkileşimi devre dışı bırakıyoruz */
         }
 
-        /* Sayfa kutusunun stilini ayarlıyoruz */
+        .raindrop {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            width: 2px;
+            height: 20px;
+            animation: fall linear infinite;
+            opacity: 0.5;
+        }
+
+        /* Yağmur damlalarının düşüş animasyonu */
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px);
+            }
+            100% {
+                transform: translateY(100vh); /* Sayfa yüksekliği kadar düşer */
+            }
+        }
+
+        /* Kullanıcı arayüzü */
         .container {
-            background-color: rgba(255, 255, 255, 0.8); /* Beyaz arka plan, biraz saydam */
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-            width: 300px;
+            position: relative;
+            z-index: 1;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            width: 350px;
             text-align: center;
-            position: relative; /* Kutuyu normal akışa yerleştiriyoruz */
-            z-index: 1; /* Kutunun diğer katmanların üzerinde görünmesini sağlıyoruz */
         }
 
         h1 {
+            font-size: 24px;
             color: #333;
         }
 
@@ -62,22 +73,13 @@
         .success {
             color: green;
         }
-
-        /* Yağmur animasyonu */
-        @keyframes rain {
-            from {
-                background-position: 0 0;
-            }
-            to {
-                background-position: 0 100%;
-            }
-        }
     </style>
 </head>
 <body>
-    <!-- Yağmur Animasyonunu Arka Planda Kullanıyoruz -->
-    <div class="rain-background"></div>
+    <!-- Yağmur animasyonu -->
+    <div class="rain"></div>
 
+    <!-- İçerik kutusu -->
     <div class="container">
         <h1>Email Verification</h1>
         <p class="message" id="message">Verifying your email...</p>
@@ -85,6 +87,26 @@
     </div>
 
     <script>
+        // Yağmur damlalarını oluşturuyoruz
+        function createRain() {
+            const rainContainer = document.querySelector('.rain');
+            const numberOfRaindrops = 100;  // Damlaların sayısını belirliyoruz
+
+            for (let i = 0; i < numberOfRaindrops; i++) {
+                const raindrop = document.createElement('div');
+                raindrop.classList.add('raindrop');
+                
+                // Damlaların pozisyonunu rastgele yerleştiriyoruz
+                raindrop.style.left = `${Math.random() * 100}vw`;  // Ekranın genişliği kadar rastgele
+                raindrop.style.animationDuration = `${Math.random() * 2 + 3}s`;  // Hızlarını rastgele belirliyoruz
+                raindrop.style.animationDelay = `${Math.random() * 5}s`;  // Gecikme ekliyoruz
+                rainContainer.appendChild(raindrop);
+            }
+        }
+
+        // Yağmur efektini başlatıyoruz
+        createRain();
+
         // URL'den e-posta parametresini alıyoruz
         function getUrlParameter(name) {
             const urlParams = new URLSearchParams(window.location.search);
