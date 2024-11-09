@@ -11,15 +11,26 @@
             margin: 0;
             padding: 0;
             height: 100vh;
-            background-image: url('https://i.gifer.com/4IA7.gif'); /* Yağmur animasyonu ekledik */
-            background-size: cover; /* Arka planı kaplayacak şekilde ayarlıyoruz */
+            background-color: #000; /* Arka planı siyah yapıyoruz */
             display: flex;
             justify-content: center; /* Yatayda ortalama */
             align-items: center; /* Dikeyde ortalama */
-            filter: blur(5px); /* Arka planı bulanıklaştırıyoruz */
-            position: fixed; /* Arka planı sabitliyoruz */
-            top: 0; left: 0;
-            right: 0; bottom: 0;
+            overflow: hidden;
+            position: relative; /* Konumlandırmayı relative yapıyoruz */
+        }
+
+        /* Yağmur GIF'ini arka plan olarak kullanıyoruz */
+        .rain-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -2; /* Arka planda olacak şekilde */
+            background-image: url('https://cdn.pixabay.com/animation/6812/6812-4k-rain-storm-ocean-ripples-blue.gif'); /* Pixabay GIF'inizin yolu */
+            background-size: cover; /* Arka planı ekran boyutuna göre ayarla */
+            background-position: center center;
+            animation: rain 0.5s linear infinite; /* Animasyon ekliyoruz */
         }
 
         /* Sayfa kutusunun stilini ayarlıyoruz */
@@ -31,7 +42,7 @@
             width: 300px;
             text-align: center;
             position: relative; /* Kutuyu normal akışa yerleştiriyoruz */
-            filter: none; /* Kutuyu bulanıklaştırmıyoruz */
+            z-index: 1; /* Kutunun diğer katmanların üzerinde görünmesini sağlıyoruz */
         }
 
         h1 {
@@ -51,9 +62,22 @@
         .success {
             color: green;
         }
+
+        /* Yağmur animasyonu */
+        @keyframes rain {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: 0 100%;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Yağmur Animasyonunu Arka Planda Kullanıyoruz -->
+    <div class="rain-background"></div>
+
     <div class="container">
         <h1>Email Verification</h1>
         <p class="message" id="message">Verifying your email...</p>
