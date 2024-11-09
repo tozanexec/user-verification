@@ -5,102 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Verification</title>
     <style>
-        /* Genel stil ayarları */
-        body, html {
+        body {
+            background: linear-gradient(to right, #333, #777);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 0;
-            height: 100%;
-            background-color: #000;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
         }
-
-        /* Arka plan için gri-beyaz gradient ve blur efekti */
-        .background-blur {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(169, 169, 169, 0.7), rgba(255, 255, 255, 0.7));
-            backdrop-filter: blur(10px);  /* Arka planı bulanıklaştırıyoruz */
-            z-index: -1; /* Arka planda olacak */
-        }
-
-        /* Kullanıcı arayüzü (kutuyu ortalamak için) */
         .container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);  /* Kutuyu tam ortaya yerleştiriyoruz */
-            background-color: rgba(255, 255, 255, 0.8);  /* Kutu şeffaf olacak */
-            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
             border-radius: 10px;
-            width: 350px;
+            width: 400px;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Kutunun etrafına hafif gölge */
-            z-index: 1; /* Kutuyu ön planda tutuyoruz */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
         }
-
-        h1 {
-            font-size: 24px;
-            color: #333;
+        h2 {
+            margin-bottom: 20px;
         }
-
-        .message {
-            font-size: 18px;
-            margin-top: 20px;
-            color: #555;
+        #message {
+            font-size: 16px;
         }
-
-        .error {
-            color: red;
-        }
-
-        .success {
-            color: green;
-        }
-
     </style>
 </head>
 <body>
-    <!-- Arka plan bulanıklığı -->
-    <div class="background-blur"></div>
 
-    <!-- İçerik kutusu -->
     <div class="container">
-        <h1>Email Verification</h1>
-        <p class="message" id="message">Verifying your email...</p>
-        <p id="email"></p>
+        <h2>Email Verification</h2>
+        <p id="message">Verifying your email...</p>
     </div>
 
     <script>
-        // URL'den e-posta parametresini alıyoruz
+        // URL'den token'ı alıyoruz
         function getUrlParameter(name) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(name);
         }
 
-        const email = getUrlParameter('email');  // URL'den e-posta alıyoruz
-
-        // E-posta adresini ekranda gösteriyoruz
-        document.getElementById('email').innerText = "Email: " + email;
-
-        // E-posta doğrulamasını simüle ediyoruz
-        function verifyEmail(email) {
-            // Gerçek bir backend servisi ile doğrulama yapılmalı
-            // Burada başarılı doğrulama mesajını simüle ediyoruz
-            if (email) {
-                document.getElementById('message').innerText = 'Your email has been successfully verified!';
-                document.getElementById('message').classList.add('success');
-            } else {
-                document.getElementById('message').innerText = 'There was an error verifying your email.';
-                document.getElementById('message').classList.add('error');
-            }
-        }
-
-        // Doğrulama fonksiyonunu çağırıyoruz
-        verifyEmail(email);
+        const token = getUrlParameter('token');
+        
+        // Token'ı doğrulamak için API'yi çağırıyoruz
+        fetch(`/verify?token=${token}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('message').innerText = "Your email has been successfully verified!";
+                } else {
+                    document.getElementById('message').innerText = "Invalid or expired token.";
+                }
+            })
+            .catch(error => {
+                console.error("Error during verification:", error);
+                document.getElementById('message').innerText = "An error occurred. Please try again.";
+            });
     </script>
+
 </body>
 </html>
